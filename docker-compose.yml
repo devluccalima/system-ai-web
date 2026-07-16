@@ -1,0 +1,28 @@
+services:
+  # Banco de Dados Relacional (Metadados e Histórico)
+  postgres:
+    image: postgres:15-alpine
+    container_name: system_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: system_root
+      POSTGRES_PASSWORD: system_rootpassword
+      POSTGRES_DB: system_db
+    ports:
+      - "5440:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Banco de Dados Vetorial (Embeddings e RAG)
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: system_chromadb
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+
+volumes:
+  postgres_data:
+  chroma_data:

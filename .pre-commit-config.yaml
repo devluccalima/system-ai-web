@@ -1,0 +1,31 @@
+repos:
+  # Verifica arquivos grandes, chaves vazadas e conflitos de merge
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        exclude: frontend/package-lock\.json
+
+  # Formata o Backend com Black
+  - repo: https://github.com/psf/black
+    rev: 23.11.0
+    hooks:
+      - id: black
+        args: [--config=backend/pyproject.toml]
+
+  # Analisa o Backend com Ruff
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.6
+    hooks:
+      - id: ruff
+        args: [--config=backend/pyproject.toml, --fix]
+
+  # Formata o Frontend com Prettier
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
+    hooks:
+      - id: prettier
+        types_or: [javascript, ts, css, scss, html, json]

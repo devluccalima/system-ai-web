@@ -1,0 +1,25 @@
+# --- SYSTEM Base .gitignore ---
+
+# Ambientes Python e dependências
+venv/
+env/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Variáveis de Ambiente
+.env
+
+# Bancos de Dados locais e ChromaDB
+*.sqlite
+*.db
+chroma_data/
+
+# Dependências Node.js (Frontend Angular)
+node_modules/
+dist/
+
+# IDEs e OS
+.vscode/
+.idea/
+.DS_Store
