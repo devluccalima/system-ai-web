@@ -1,10 +1,16 @@
 from app.core.config import settings
 from app.core.database import get_db
+
+# Imports dos routers
+from app.routes import auth, users
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION)
+
+app.include_router(users.router, prefix="/api/v1")  # Prefixo para a versão da API
+app.include_router(auth.router, prefix="/api/v1")
 
 
 @app.get("/")
