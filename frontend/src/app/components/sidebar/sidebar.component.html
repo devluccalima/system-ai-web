@@ -1,0 +1,38 @@
+<div class="sidebar-content">
+  <div class="sidebar-header">
+    <button class="jarvis-btn new-chat-btn" (click)="startNewChat()">+ NOVA CONEXÃO</button>
+  </div>
+
+  <div class="history-list jarvis-scroll">
+    <!-- Mensagem caso o histórico esteja vazio -->
+    <div
+      *ngIf="conversations.length === 0"
+      class="history-item"
+      style="opacity: 0.5; justify-content: center"
+    >
+      <p>Nenhuma conexão ativa</p>
+    </div>
+
+    <!-- Iteramos sobre o histórico de conversas -->
+    <!-- Laço de repetição -->
+    <div
+      *ngFor="let conv of conversations; let i = index"
+      class="history-item"
+      (click)="onSelectChat(conv.id)"
+    >
+      <div class="chat-info">
+        <span>{{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}</span>
+        <p>{{ conv.title }}</p>
+      </div>
+
+      <!-- O botão de excluir com o $event.stopPropagation() -->
+      <button class="delete-btn" title="Apagar Memória" (click)="onDeleteChat(conv.id, $event)">
+        [ X ]
+      </button>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="jarvis-btn logout-btn" (click)="logout()">[ DESCONECTAR ]</button>
+    </div>
+  </div>
+</div>

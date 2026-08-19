@@ -1,60 +1,17 @@
-from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, EmailStr, Field
-
-# --- OPÇÕES PREDEFINIDAS (Dropdowns e Checkboxes no Angular) ---
-
-
-class TechInterest(str, Enum):
-    PYTHON = "Python"
-    ANGULAR = "Angular"
-    REACT = "React"
-    SQL = "SQL"
-    POWER_APPS = "Power Apps"
-    DOCKER = "Docker"
-    KUBERNETES = "Kubernetes"
-    JAVA = "Java"
-    DOTNET = ".NET"
-    PHP = "PHP"
-    AI = "Inteligência Artificial"
-    OTHER = "Other"
-
-
-class HobbyInterest(str, Enum):
-    TABLETOP_RPG = "Tabletop RPGs"
-    PC_GAMING = "PC Gaming"
-    ANIME = "Anime & Manga"
-    CARS = "Car Modification"
-    TATTOOS = "Tattoo Aesthetics"
-    FINANCE = "Personal Finance"
-    CARTOONS = "Cartoons & Animation"
-    IDEAS = "IDEAS (Inventions, Projects, Startups)"
-    OTHER = "Other"
-
-
-class ProfessionRole(str, Enum):
-    IT_TECHNICIAN = "IT Technician"
-    SOFTWARE_DEVELOPER = "Software Developer"
-    STUDENT = "Student"
-    ARCHITECT = "Architect"
-    ENGINEER = "Engineer"
-    LAWYER = "Lawyer"
-    PSICHOLOGIST = "Psychologist"
-    MUSICIAN = "Musician"
-    ADMINISTRATOR = "Administrator"
-    ACCOUNTANT = "Accountant"
-    OTHER = "Other"
-
 
 # --- ESTRUTURA DO ONBOARDING (O JSONB final) ---
 
 
 class AIContext(BaseModel):
     # Predefinidos
-    profession: ProfessionRole
-    tech_stack: List[TechInterest] = []
-    hobbies: List[HobbyInterest] = []
+    profession: Optional[str] = None
+    tech_stack: Optional[List[str]] = []
+    hobbies: Optional[List[str]] = []
+    current_projects: Optional[List[str]] = []
+    custom_instructions: Optional[str] = None
 
     # Textos Manuais (Onde você vai digitar livremente)
     current_projects: List[str] = Field(

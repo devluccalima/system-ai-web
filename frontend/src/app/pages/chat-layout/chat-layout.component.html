@@ -1,0 +1,20 @@
+<div class="jarvis-chat-wrapper">
+  <!-- Adicionamos o (newChat) ouvindo o clique que vem da Sidebar -->
+  <app-sidebar
+    class="sidebar-container"
+    [class.hidden]="!isSidebarOpen"
+    (newChat)="onNewChat()"
+    (selectChat)="onLoadChat($event)"
+    (chatDeleted)="onChatDeleted($event)"
+  >
+  </app-sidebar>
+
+  <!-- Colocamos a tag #chatArea para o TypeScript conseguir enxergar ela -->
+  <app-chat-area
+    #chatArea
+    class="chat-container"
+    [isSidebarOpen]="isSidebarOpen"
+    (toggleSidebar)="toggleSidebar()"
+  >
+  </app-chat-area>
+</div>

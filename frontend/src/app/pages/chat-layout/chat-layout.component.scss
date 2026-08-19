@@ -1,0 +1,31 @@
+.jarvis-chat-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.sidebar-container {
+  width: 300px;
+  height: 100%;
+  transition:
+    margin-left 0.3s ease,
+    opacity 0.3s ease;
+  border-right: 1px solid rgba(0, 229, 255, 0.15);
+  background: var(--system-bg-panel);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.sidebar-container.hidden {
+  margin-left: -300px;
+  opacity: 0;
+}
+
+.chat-container {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

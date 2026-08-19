@@ -23,3 +23,9 @@ dist/
 .vscode/
 .idea/
 .DS_Store
+
+# Ollama
+
+ollama/
+ollama/models/
+ollama/cache/

@@ -1,0 +1,108 @@
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 15px;
+}
+
+.new-chat-btn {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid transparent;
+  border-radius: var(--panel-radius);
+  cursor: pointer;
+  color: rgba(0, 229, 255, 0.6);
+  transition: all 0.2s ease;
+}
+
+.history-item:hover,
+.history-item.active {
+  background: rgba(0, 229, 255, 0.05);
+  border-color: rgba(0, 229, 255, 0.3);
+  color: var(--jarvis-primary);
+}
+
+.history-item span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  opacity: 0.5;
+}
+
+.history-item p {
+  margin: 0;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-footer {
+  margin-top: 15px;
+}
+
+.logout-btn {
+  width: 100%;
+  background: transparent;
+  border-color: rgba(255, 59, 59, 0.3);
+  color: var(--jarvis-alert);
+}
+
+.logout-btn:hover {
+  background: rgba(255, 59, 59, 0.1);
+  box-shadow: 0 0 10px rgba(255, 59, 59, 0.3);
+}
+
+/* Ajusta o item para o botão ficar à direita */
+.history-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* O container do texto ganha flex: 1 para ocupar o espaço */
+.chat-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Estilo do botão de excluir (Escondido por padrão) */
+.delete-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 59, 59, 0.5);
+  color: rgba(255, 59, 59, 0.8);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2px 8px;
+  font-size: 10px;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: rgba(255, 59, 59, 0.2);
+  color: #ff3b3b;
+}
+
+/* Mostra o botão apenas quando o mouse estiver sobre o item da conversa */
+.history-item:hover .delete-btn {
+  opacity: 1;
+}
