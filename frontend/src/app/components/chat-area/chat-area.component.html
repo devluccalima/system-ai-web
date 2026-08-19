@@ -1,0 +1,41 @@
+<header class="chat-header">
+  <button class="jarvis-btn toggle-btn" (click)="toggleSidebar.emit()">
+    {{ isSidebarOpen ? '◀ OCULTAR PAINEL' : '▶ EXPANDIR PAINEL' }}
+  </button>
+  <div class="jarvis-status" [class.jarvis-status--alert]="isLoading">
+    {{ isLoading ? 'PROCESSANDO...' : 'SISTEMA ONLINE' }}
+  </div>
+</header>
+
+<main class="chat-messages jarvis-scroll" #scrollFrame>
+  <div class="jarvis-chat">
+    <div
+      *ngFor="let msg of messages"
+      class="jarvis-bubble"
+      [ngClass]="msg.role === 'user' ? 'jarvis-bubble--user' : 'jarvis-bubble--system'"
+    >
+      {{ msg.content }}
+    </div>
+
+    <!-- Indicador visual de digitação -->
+    <div class="jarvis-bubble jarvis-bubble--system" *ngIf="isLoading">
+      <div class="jarvis-typing"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</main>
+
+<footer class="chat-footer">
+  <div class="input-wrapper">
+    <input
+      type="text"
+      class="jarvis-input"
+      placeholder="Digite seu comando..."
+      [(ngModel)]="userMessage"
+      (keyup.enter)="sendMessage()"
+      [disabled]="isLoading"
+    />
+    <button class="jarvis-btn send-btn" (click)="sendMessage()" [disabled]="isLoading">
+      [ ENVIAR ]
+    </button>
+  </div>
+</footer>

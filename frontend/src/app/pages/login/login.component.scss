@@ -1,0 +1,59 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center; /* Centraliza o botão */
+}
+
+.jarvis-btn {
+  width: 100%; /* Botão ocupando a largura toda */
+}
+
+.jarvis-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.error-message {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.register-link {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(0, 229, 255, 0.5);
+  font-family: var(--font-main);
+}
+
+.register-link a {
+  color: var(--jarvis-primary);
+  text-decoration: none;
+  margin-left: 8px;
+  font-weight: 600;
+  transition: text-shadow 0.2s ease;
+}
+
+.register-link a:hover {
+  text-shadow: var(--jarvis-glow);
+}

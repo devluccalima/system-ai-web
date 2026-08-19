@@ -1,0 +1,79 @@
+.cadastro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.cadastro-box {
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh; /* Se a tela for pequena, permite scroll */
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: rgba(0, 229, 255, 0.6);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.mt-4 {
+  margin-top: 25px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+}
+
+.jarvis-btn {
+  width: 100%;
+}
+
+.jarvis-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.messages {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.login-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(0, 229, 255, 0.5);
+  font-family: var(--font-main);
+}
+
+.login-link a {
+  color: var(--jarvis-primary);
+  text-decoration: none;
+  margin-left: 8px;
+  font-weight: 600;
+  transition: text-shadow 0.2s ease;
+}
+
+.login-link a:hover {
+  text-shadow: var(--jarvis-glow);
+}
+
+textarea.jarvis-input {
+  resize: vertical; /* Permite redimensionar só para baixo, ou use 'none' para travar 100% */
+  min-height: 80px;
+}

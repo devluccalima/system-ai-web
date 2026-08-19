@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+  background: rgba(10, 10, 10, 0.5);
+}
+
+.toggle-btn {
+  padding: 5px 10px;
+  font-size: 11px;
+  border: none;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+}
+
+.chat-footer {
+  padding: 20px 25px;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, transparent 100%);
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.send-btn {
+  min-width: 120px;
+}

@@ -1,0 +1,443 @@
+/* ==========================================================================
+   JARVIS UI — Sistema de estilos
+   Baseado nas variáveis fornecidas. Estenda o :root abaixo conforme
+   for mandando novas classes/variáveis.
+   ========================================================================== */
+
+:root {
+  /* Cores Base do Sistema */
+  --system-bg-dark: #0a0a0a;
+  --system-bg-panel: rgba(15, 20, 30, 0.6);
+
+  /* Cores de Destaque (O "Neon" do Jarvis) */
+  --jarvis-primary: #00e5ff;
+  --jarvis-secondary: #0077ff;
+  --jarvis-alert: #ff3b3b;
+  --jarvis-glow: 0 0 10px rgba(0, 229, 255, 0.5), 0 0 20px rgba(0, 229, 255, 0.3);
+
+  /* Tipografia */
+  --font-main: 'Rajdhani', 'Roboto', sans-serif;
+  --font-mono: 'Share Tech Mono', 'Consolas', monospace;
+
+  /* Estrutura dos Balões */
+  --bubble-user-bg: rgba(0, 229, 255, 0.1);
+  --bubble-system-bg: transparent;
+  --bubble-border: 1px solid rgba(0, 229, 255, 0.3);
+
+  /* Layout / Efeitos */
+  --panel-radius: 6px;
+  --panel-border: 1px solid rgba(0, 229, 255, 0.25);
+  --grid-size: 42px;
+  --grid-color: rgba(0, 229, 255, 0.07);
+  --scan-speed: 6s;
+}
+
+/* ==========================================================================
+   RESET BÁSICO
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--system-bg-dark);
+  color: var(--jarvis-primary);
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ==========================================================================
+   FUNDO ANIMADO — grid + glow pulsante + linha de varredura (scanline)
+   ========================================================================== */
+
+.jarvis-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background: var(--system-bg-dark);
+  overflow: hidden;
+}
+
+/* Grade tecnológica no fundo, com leve movimento de "paralaxe" */
+.jarvis-bg::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  animation: jarvis-grid-drift 18s linear infinite;
+}
+
+/* Vinheta radial pulsante, simula o "núcleo" energético do sistema */
+.jarvis-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(0, 229, 255, 0.12) 0%,
+    rgba(0, 229, 255, 0.04) 30%,
+    transparent 65%
+  );
+  animation: jarvis-pulse 4s ease-in-out infinite;
+}
+
+@keyframes jarvis-grid-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: var(--grid-size) var(--grid-size);
+  }
+}
+
+@keyframes jarvis-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Linha de varredura horizontal cruzando a tela, efeito radar/scan */
+.jarvis-scanline {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  z-index: -2;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 229, 255, 0.6) 50%, transparent 100%);
+  box-shadow: var(--jarvis-glow);
+  animation: jarvis-scan var(--scan-speed) linear infinite;
+}
+
+@keyframes jarvis-scan {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* Partículas flutuantes (opcional — duplique .jarvis-particle no HTML) */
+.jarvis-particle {
+  position: fixed;
+  z-index: -1;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--jarvis-primary);
+  box-shadow: 0 0 6px 1px rgba(0, 229, 255, 0.6);
+  animation: jarvis-float 12s ease-in-out infinite;
+}
+
+@keyframes jarvis-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-40vh) translateX(15px);
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-90vh) translateX(-10px);
+    opacity: 0;
+  }
+}
+
+/* Respeita usuários que preferem menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  .jarvis-bg::before,
+  .jarvis-bg::after,
+  .jarvis-scanline,
+  .jarvis-particle {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   PAINÉIS (HUD panels)
+   ========================================================================== */
+
+.jarvis-panel {
+  background: var(--system-bg-panel);
+  border: var(--panel-border);
+  border-radius: var(--panel-radius);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 20px;
+  position: relative;
+  box-shadow: var(--jarvis-glow);
+}
+
+/* "Cantos de holograma" — detalhe característico de HUD sci-fi */
+.jarvis-panel::before,
+.jarvis-panel::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--jarvis-primary);
+  opacity: 0.8;
+}
+
+.jarvis-panel::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.jarvis-panel::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+.jarvis-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--jarvis-primary);
+  opacity: 0.75;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+/* ==========================================================================
+   CHAT — balões de conversa
+   ========================================================================== */
+
+.jarvis-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.jarvis-bubble {
+  max-width: 75%;
+  padding: 12px 16px;
+  border-radius: var(--panel-radius);
+  font-size: 15px;
+  line-height: 1.5;
+  animation: jarvis-fade-in 0.35s ease-out;
+}
+
+.jarvis-bubble--user {
+  align-self: flex-end;
+  background: var(--bubble-user-bg);
+  border: var(--bubble-border);
+  color: #e8feff;
+  border-bottom-right-radius: 2px;
+}
+
+.jarvis-bubble--system {
+  align-self: flex-start;
+  background: var(--bubble-system-bg);
+  border-left: 2px solid var(--jarvis-primary);
+  border-radius: 2px;
+  padding-left: 14px;
+  color: rgba(200, 250, 255, 0.9);
+  font-family: var(--font-mono);
+}
+
+@keyframes jarvis-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Indicador de "digitando" / processando */
+.jarvis-typing {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.jarvis-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--jarvis-primary);
+  box-shadow: var(--jarvis-glow);
+  animation: jarvis-blink 1.2s ease-in-out infinite;
+}
+
+.jarvis-typing span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.jarvis-typing span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes jarvis-blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   INPUT / CAMPO DE COMANDO
+   ========================================================================== */
+
+.jarvis-input {
+  width: 100%;
+  background: rgba(0, 229, 255, 0.05);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: var(--panel-radius);
+  color: var(--jarvis-primary);
+  font-family: var(--font-main);
+  font-size: 15px;
+  padding: 12px 16px;
+  outline: none;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.jarvis-input::placeholder {
+  color: rgba(0, 229, 255, 0.4);
+}
+
+.jarvis-input:focus {
+  border-color: var(--jarvis-primary);
+  box-shadow: var(--jarvis-glow);
+}
+
+/* ==========================================================================
+   BOTÕES
+   ========================================================================== */
+
+.jarvis-btn {
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid var(--jarvis-primary);
+  color: var(--jarvis-primary);
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 13px;
+  padding: 10px 20px;
+  border-radius: var(--panel-radius);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+}
+
+.jarvis-btn:hover {
+  background: rgba(0, 229, 255, 0.2);
+  box-shadow: var(--jarvis-glow);
+}
+
+.jarvis-btn:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================================================
+   STATUS / INDICADORES
+   ========================================================================== */
+
+.jarvis-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--jarvis-primary);
+}
+
+.jarvis-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--jarvis-primary);
+  box-shadow: var(--jarvis-glow);
+  animation: jarvis-pulse-dot 1.6s ease-in-out infinite;
+}
+
+.jarvis-status--alert {
+  color: var(--jarvis-alert);
+}
+
+.jarvis-status--alert::before {
+  background: var(--jarvis-alert);
+  box-shadow: 0 0 10px rgba(255, 59, 59, 0.6);
+}
+
+@keyframes jarvis-pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* ==========================================================================
+   SCROLLBAR
+   ========================================================================== */
+
+.jarvis-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.jarvis-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.jarvis-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.3);
+  border-radius: 3px;
+}
+
+.jarvis-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 229, 255, 0.5);
+}
